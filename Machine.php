@@ -15,7 +15,7 @@
  */
 class Machine
 {
-	public static function chown($path, $user, $group, $recursive = false)
+	public static function chown( $path, $user, $group, $recursive = false )
 	{
 		if( $recursive )
 		{
