@@ -1,6 +1,6 @@
 <?php
 /**
- * Systems class
+ * Machine class
  *
  * @package             Framework
  */
@@ -13,7 +13,7 @@
  * @package             Framework
  * @subpackage          System
  */
-class System
+class Machine
 {
 	public static function users()
 	{
