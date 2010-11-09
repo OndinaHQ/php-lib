@@ -127,8 +127,14 @@ class Courier
 			//Whoops. We've got an issue. Backup slowly.
 			self::removeAccount($email);
 			
+			return false;
+		}
+		else
+		{
+			self::makeUserdb();
 			
-		self::makeUserdb();
+			return true;
+		}
 	}
 }
 ?>
