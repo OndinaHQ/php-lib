@@ -44,6 +44,57 @@ class Machine
 		}
 	}
 	
+	public static function rm( $paths, $recursive = false )
+	{
+		if( !is_array($paths) )
+		{
+			$paths = array($paths);
+		}
+		
+		if( $recursive )
+		{
+			foreach( $paths as $path )
+			{
+				$directory = opendir($path);
+				while( ($file = readdir($directory)) !== false )
+				{
+					if( $file != '.' && $file != '..' )
+					{
+						$typepath = $path . '/' . $file;
+						
+						if( filetype($typepath) == 'dir' )
+						{
+							self::rm($typepath, true);
+							
+							if( !@rmdir($typepath) )
+							{
+								return false;
+							}
+						}
+						else
+						{
+							if( !@unlink($typepath) )
+							{
+								return false;
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			foreach( $paths as $path )
+			{
+				$func = (is_dir($file)) ? 'rmdir' : 'unlink';
+				if( !@$func($file) )
+				{
+					return false;
+				}
+			}
+		}
+	}
+	
 	public static function users()
 	{
 		$users = array();
