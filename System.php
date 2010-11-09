@@ -34,7 +34,18 @@ class System
 			$data = explode(":", $line);
 			$user = array_shift($data);
 			
-			$users[$user] = $data;
+			list(, $uid, $gid, $info, $path, $terminal) = $data;
+			
+			$tmp = array();
+			$tmp['uid'] = $uid;
+			$tmp['gid'] = $gid;
+			$tmp['name'] = array_shift(explode(',', $info));
+			$tmp['path'] = $path;
+			$tmp['terminal'] = $terminal;
+			
+			$users[$user] = $tmp;
+			
+			unset($tmp);
 		}
 		
 		return $users;
