@@ -15,11 +15,6 @@
  */
 class System
 {
-	function System()
-	{
-		
-	}
-	
 	public static function users()
 	{
 		$users = array();
@@ -53,7 +48,7 @@ class System
 	
 	public static function user( $user )
 	{
-		$users = $this->users();
+		$users = self::users();
 		
 		if( array_key_exists($user, $users) )
 		{
