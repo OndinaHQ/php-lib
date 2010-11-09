@@ -41,6 +41,7 @@ class Machine
 		{
 			chown($path, $user);
 			chgrp($path, $group);
+		}
 	}
 	
 	public static function users()
