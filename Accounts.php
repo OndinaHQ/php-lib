@@ -72,7 +72,7 @@ class Accounts
 	
 	function addUserdomain( $user, $domain )
 	{
-		if( ){}
+
 	}
 }
 ?>
