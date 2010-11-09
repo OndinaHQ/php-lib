@@ -15,6 +15,34 @@
  */
 class Machine
 {
+	public static function chown($path, $user, $group, $recursive = false)
+	{
+		if( $recursive )
+		{
+			$directory = opendir($path);
+			
+			while( ($file = readdir($directory)) !== false )
+			{
+				if( $file != '.' && $file != '..' )
+				{
+					$typepath = $path . '/' . $file;
+					
+					if( filetype($typepath) == 'dir' )
+					{
+						self::chown($typepath, $user, $group, true);
+					}
+					
+					chown($typepath, $user);
+					chgrp($typepath, $group);
+				}
+			}
+		}
+		else
+		{
+			chown($path, $user);
+			chgrp($path, $group);
+	}
+	
 	public static function users()
 	{
 		$users = array();
