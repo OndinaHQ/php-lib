@@ -118,7 +118,7 @@ class Courier
 		}
 		
 		self::makeMailDir($mail);
-		Machine::chown(MAIL_DIR . $domain, MAIL_USER, MAIL_USER, true);
+		Machine::chown($home, $mail_uid, $mail_gid, true);
 
 		system("userdb $email set uid=$mail_uid gid=$mail_gid home=$home mail=$mail", $status);
 		
