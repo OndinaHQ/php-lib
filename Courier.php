@@ -90,6 +90,8 @@ class Courier
 		
 		system("userdb $email del", $status);
 		
+		self::makeUserdb();
+		
 		return ( $status > 0 ) ? false : true;
 	}
 	
