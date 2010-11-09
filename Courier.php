@@ -99,7 +99,7 @@ class Courier
 	{
 		if( is_null($mail_uid) || is_null($mail_gid) )
 		{
-			$userdata = Machine::users('mail');
+			$userdata = Machine::user('mail');
 			
 			$mail_uid = (is_null($mail_uid)) ? $userdata['uid'] : $mail_uid;
 			$mail_gid = (is_null($mail_gid)) ? $userdata['gid'] : $mail_gid;
