@@ -40,7 +40,7 @@ class IO
 	{
 		if( $lvl >= OUTPUT_LEVEL )
 		{
-			echo $msg;
+			echo $msg . PHP_EOL;
 		}
 	}
 }
