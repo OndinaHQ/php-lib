@@ -22,6 +22,11 @@ class Courier
 		// Not sure if we're going to construct yet...
 	}
 	
+	/**
+	 * Users Method
+	 * 
+	 * @return array|false List of users
+	 */
 	public static function users()
 	{
 		$users = array();
@@ -51,6 +56,13 @@ class Courier
 		return $users;
 	}
 	
+	/**
+	 * User Method
+	 * 
+	 * @param string $username
+	 * 
+	 * @return array|false List of user details
+	 */
 	public static function user( $username )
 	{
 		$users = self::users();
@@ -65,13 +77,25 @@ class Courier
 		}
 	}
 	
+	/**
+	 * Rebuild Courier User Databse
+	 * 
+	 * @return bool
+	 */
 	public static function makeUserdb()
 	{
 		system('makeuserdb', $status);
 		
 		return ( $status > 0 ) ? false : true;
 	}
-	
+
+	/**
+	 * Create maildir Directory
+	 * 
+	 * @param string $dir Directory to create as maildir
+	 * 
+	 * @return bool
+	 */
 	public static function makeMailDir( $dir )
 	{
 		system("maildirmake $dir", $status);
@@ -79,6 +103,13 @@ class Courier
 		return ( $status > 0 ) ? false : true;
 	}
 	
+	/**
+	 * Remove Courier mail account
+	 * 
+	 * @param string $username Email user to remove from Courier Database
+	 * 
+	 * @return bool
+	 */
 	public static function removeAccount( $username )
 	{
 		if( !$userdata = self::user($username) )
@@ -95,6 +126,17 @@ class Courier
 		return ( $status > 0 ) ? false : true;
 	}
 	
+	/**
+	 * Add Courier mail account
+	 * 
+	 * @param string $email Email account (username) to add
+	 * @param string $home Path for home
+	 * @param string $mail Maildir directory
+	 * @param int $mail_uid System uid for Mail user
+	 * @param int $mail_gid System gid for Mail user
+	 * 
+	 * @return bool
+	 */
 	public static function addAccount( $email, $home, $mail, $mail_uid = NULL, $mail_gid = NULL )
 	{
 		if( is_null($mail_uid) || is_null($mail_gid) )
