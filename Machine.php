@@ -139,5 +139,19 @@ class Machine
 			return false;
 		}
 	}
+	
+	public static function domains()
+	{
+		$domains = file('/etc/localdomains', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		
+		return $domains;
+	}
+	
+	public static function is_domain( $domain )
+	{
+		$domains = self::domains();
+		
+		return ( in_array($domain, $domains) ) ? true : false;
+	}
 }
 ?>
