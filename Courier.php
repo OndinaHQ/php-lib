@@ -27,7 +27,7 @@ class Courier
 	 * 
 	 * @return array|false List of users
 	 */
-	public static function users()
+	public static function accounts()
 	{
 		$users = array();
 		
@@ -63,9 +63,9 @@ class Courier
 	 * 
 	 * @return array|false List of user details
 	 */
-	public static function user( $username )
+	public static function account( $username )
 	{
-		$users = self::users();
+		$users = self::accounts();
 		
 		if( array_key_exists($username, $users) )
 		{
@@ -112,7 +112,7 @@ class Courier
 	 */
 	public static function removeAccount( $username )
 	{
-		if( !$userdata = self::user($username) )
+		if( !$userdata = self::account($username) )
 		{
 			return false;
 		}
