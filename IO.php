@@ -43,5 +43,13 @@ class IO
 			echo $msg . PHP_EOL;
 		}
 	}
+	
+	public static function input($msg)
+	{
+		echo "$msg: ";
+		
+		return trim(fgets(STDIN));
+	}
 }
+
 ?>
