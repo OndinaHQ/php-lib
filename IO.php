@@ -12,6 +12,10 @@ define('NO_MODE_SPECIFIED',      3);
 define('INSUFICENT_PRIVILEDGES', 4);
 define('INVALID_SELECTION',      5);
 
+// Write states
+define('GENERAL', 0);
+define('DEBUG',   1);
+
 /**
  * Manage data going out, and coming in.
  *
