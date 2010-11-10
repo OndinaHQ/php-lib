@@ -136,5 +136,10 @@ class Courier
 			return true;
 		}
 	}
+	
+	public static function addForwarder($from, $to)
+	{
+		
+	}
 }
 ?>
