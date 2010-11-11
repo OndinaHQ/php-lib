@@ -134,6 +134,8 @@ class Courier
 			$out = @implode("\n", $out);
 			
 			file_put_contents("/etc/valiases/$domain", $out);
+			
+			return true;
 		}
 		else
 		{
