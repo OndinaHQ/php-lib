@@ -52,6 +52,11 @@ class IO
 		}
 	}
 	
+	public static function debug($msg)
+	{
+		self::write("DEBUG: $msg", DEBUG);
+	}
+	
 	public static function input($msg)
 	{
 		echo "$msg: ";
