@@ -108,9 +108,15 @@ class Courier
 			foreach( $file as $line )
 			{
 				list($user, $forwarder) = explode(': ', $line, 2);
-				
-				$alias = explode(' ', $forwarder);
-				$aliases[$domain][$user] = $alias;
+				if( $user != '*' )
+				{
+					$alias = explode(' ', $forwarder);
+					$aliases[$domain][$user] = $alias;
+				}
+				else
+				{
+					$aliases[$domain][$user] = array($forwarder);
+				}
 			}
 		}
 		
