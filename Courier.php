@@ -274,15 +274,27 @@ class Courier
 				$aliases[$domain] = $useraliases;
 			}
 			
-			if( !array_unshift($aliases[$domain][$username], $to) > 1 )
+			if( $username = '*' )
 			{
-				return false;
-			}
-			else
-			{
+				$aliases[$domain][$username][0] = $to;
+				
 				if( !self::setAlias($domain, $aliases[$domain]) )
 				{
 					return false;
+				}
+			}
+			else
+			{
+				if( !array_unshift($aliases[$domain][$username], $to) > 1 )
+				{
+					return false;
+				}
+				else
+				{
+					if( !self::setAlias($domain, $aliases[$domain]) )
+					{
+						return false;
+					}
 				}
 			}
 			
