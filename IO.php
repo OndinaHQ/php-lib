@@ -36,9 +36,9 @@ class IO
 		exit($code);
 	}
 
-	public static function write($msg, $lvl = GENERAL)
+	public static function write($msg, $state = GENERAL)
 	{
-		if( $lvl <= OUTPUT_LEVEL )
+		if( $state <= OUTPUT_LEVEL )
 		{
 			if( is_array($msg) )
 			{
