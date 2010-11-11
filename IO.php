@@ -38,7 +38,7 @@ class IO
 
 	public static function write($msg, $lvl = GENERAL)
 	{
-		if( $lvl >= OUTPUT_LEVEL )
+		if( $lvl <= OUTPUT_LEVEL )
 		{
 			if( is_array($msg) )
 			{
