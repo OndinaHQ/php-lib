@@ -244,7 +244,7 @@ class Courier
 		
 		Machine::rm($userdata['home'], true);
 		
-		system("userdb $email del", $status);
+		system("userdb $username del", $status);
 		
 		self::makeUserdb();
 		
