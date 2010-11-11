@@ -243,6 +243,7 @@ class Courier
 		}
 		
 		Machine::rm($userdata['home'], true);
+		Machine::rm($userdata['home']);
 		
 		system("userdb $username del", $status);
 		
