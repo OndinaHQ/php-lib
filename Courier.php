@@ -32,7 +32,7 @@ class Courier
 	{
 		$users = array();
 		
-		if( !$data_array = file('/etc/passwd') )
+		if( !$data_array = file('/etc/courier/userdb') )
 		{
 			return false;
 		}
