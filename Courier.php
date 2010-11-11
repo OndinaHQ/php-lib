@@ -255,6 +255,7 @@ class Courier
 		{
 			$aliases = self::aliases($domain);
 			IO::write('Gather list of aliases', DEBUG);
+			IO::write($aliases, DEBUG);
 			
 			if( !array_unshift($aliases[$domain][$username], $to) > 1 )
 			{
