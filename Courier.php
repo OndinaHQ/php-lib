@@ -251,6 +251,27 @@ class Courier
 		return ( $status > 0 ) ? false : true;
 	}
 	
+	public static function password($account, $password)
+	{
+		if( !self::account($account) )
+		{
+			return false;
+		}
+		
+		system('echo "' . $password . '" | userdbpw -md5 | userdb ' . $account . ' set systempw', $status);
+		
+		if( $status > 0 )
+		{
+			return false;
+		}
+		else
+		{
+			self::makeUserdb();
+		}
+		
+		return true;
+	}
+	
 	public static function addForwarder($from, $to)
 	{
 		$tmp = explode('@', $from);
