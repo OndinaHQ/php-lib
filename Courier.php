@@ -257,6 +257,15 @@ class Courier
 			IO::write('Gather list of aliases', DEBUG);
 			IO::write($aliases, DEBUG);
 			
+			if( !array_key_exists($username, $aliases[$domain]) )
+			{
+				$useraliases = array_reverse($aliases[$domain], true);
+				$useraliases[$username] = array();
+				$useraliases = array_reverse($useraliases);
+				
+				$aliases[$domain] = $useraliases;
+			}
+			
 			if( !array_unshift($aliases[$domain][$username], $to) > 1 )
 			{
 				return false;
