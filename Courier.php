@@ -181,7 +181,18 @@ class Courier
 	
 	public static function addForwarder($from, $to)
 	{
+		$tmp = explode('@', $from);
+		$username = $tmp[0];
+		$domain = $tmp[1];
 		
+		if( Machine::is_domain($domain) )
+		{
+			
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 ?>
