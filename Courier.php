@@ -187,7 +187,21 @@ class Courier
 		
 		if( Machine::is_domain($domain) )
 		{
+			$aliases = self::aliases($domain);
 			
+			if( !array_unshift($aliases[$domain][$username], $to) > 1 )
+			{
+				return false;
+			}
+			else
+			{
+				if( !self::setAlias($domain, $aliases[$domain]) )
+				{
+					return false;
+				}
+			}
+			
+			return true;
 		}
 		else
 		{
