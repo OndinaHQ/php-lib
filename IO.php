@@ -40,7 +40,15 @@ class IO
 	{
 		if( $lvl >= OUTPUT_LEVEL )
 		{
-			echo $msg . PHP_EOL;
+			if( is_array($msg) )
+			{
+				print_r($msg);
+				echo PHP_EOL;
+			}
+			else
+			{
+				echo $msg . PHP_EOL;
+			}
 		}
 	}
 	
