@@ -176,29 +176,6 @@ class Courier
 	}
 	
 	/**
-	 * Remove Courier mail account
-	 * 
-	 * @param string $username Email user to remove from Courier Database
-	 * 
-	 * @return bool
-	 */
-	public static function removeAccount( $username )
-	{
-		if( !$userdata = self::account($username) )
-		{
-			return false;
-		}
-		
-		Machine::rm($userdata['home'], true);
-		
-		system("userdb $email del", $status);
-		
-		self::makeUserdb();
-		
-		return ( $status > 0 ) ? false : true;
-	}
-	
-	/**
 	 * Add Courier mail account
 	 * 
 	 * @param string $email Email account (username) to add
@@ -249,6 +226,29 @@ class Courier
 			
 			return true;
 		}
+	}
+	
+	/**
+	 * Remove Courier mail account
+	 * 
+	 * @param string $username Email user to remove from Courier Database
+	 * 
+	 * @return bool
+	 */
+	public static function removeAccount( $username )
+	{
+		if( !$userdata = self::account($username) )
+		{
+			return false;
+		}
+		
+		Machine::rm($userdata['home'], true);
+		
+		system("userdb $email del", $status);
+		
+		self::makeUserdb();
+		
+		return ( $status > 0 ) ? false : true;
 	}
 	
 	public static function addForwarder($from, $to)
