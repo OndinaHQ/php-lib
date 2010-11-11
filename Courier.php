@@ -116,6 +116,30 @@ class Courier
 		return $aliases;
 	}
 	
+	public static function setAlias( $domain, $data )
+	{
+		if( Machine::is_domain($domain) )
+		{
+			$out = array();
+			
+			foreach( $data as $user => $alias )
+			{
+				$alias = @implode(' ', $alias);
+				
+				$line = "$user: $alias";
+				$out[] = $line;
+			}
+			
+			$out = @implode("\n", $out);
+			
+			file_put_contents("/etc/valiases/$domain", $out);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	/**
 	 * Rebuild Courier User Databse
 	 * 
