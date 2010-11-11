@@ -77,6 +77,45 @@ class Courier
 		}
 	}
 	
+	public static function aliases( $domain = NULL )
+	{
+		if( !is_null($domain) )
+		{
+			if( !Machine::is_domain($domain) )
+			{
+				return false;
+			}
+		}
+		else
+		{
+			$domain = '*';
+		}
+		
+		$aliases = array();
+		
+		$alias_files = glob("/etc/valiases/$domain");
+		
+		foreach( $alias_files as $alias )
+		{
+			$domain = basename($alias);
+			
+			if( !$file = file($alias, FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES) )
+			{
+				return false;
+			}
+			
+			foreach( $file as $line )
+			{
+				list($user, $forwarder) = explode(': ', $line, 2);
+				
+				$alias = explode(' ', $forwarder);
+				$aliases[$domain][$user] = $alias;
+			}
+		}
+		
+		return $aliases;
+	}
+	
 	/**
 	 * Rebuild Courier User Databse
 	 * 
