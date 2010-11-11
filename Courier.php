@@ -6,6 +6,7 @@
  */
 
 require_once('Machine.php');
+require_once('IO.php');
 
 /**
  * Courier management class.
@@ -248,9 +249,12 @@ class Courier
 		$username = $tmp[0];
 		$domain = $tmp[1];
 		
+		IO::write('Testing if a domain', DEBUG);
+		
 		if( Machine::is_domain($domain) )
 		{
 			$aliases = self::aliases($domain);
+			IO::write('Gather list of aliases', DEBUG);
 			
 			if( !array_unshift($aliases[$domain][$username], $to) > 1 )
 			{
