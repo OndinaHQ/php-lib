@@ -80,6 +80,8 @@ class Machine
 						}
 					}
 				}
+				
+				@rmdir($path);
 			}
 		}
 		else
