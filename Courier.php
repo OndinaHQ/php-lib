@@ -291,12 +291,12 @@ class Courier
 			{
 				$useraliases = array_reverse($aliases[$domain], true);
 				$useraliases[$username] = array();
-				$useraliases = array_reverse($useraliases);
+				$useraliases = array_reverse($useraliases, true);
 				
 				$aliases[$domain] = $useraliases;
 			}
 			
-			if( $username = '*' )
+			if( $username == '*' )
 			{
 				$aliases[$domain][$username][0] = $to;
 				
