@@ -8,6 +8,12 @@
 require_once('Machine.php');
 require_once('IO.php');
 
+define('MAIL_DIR',   '/var/mail/virtual/');
+define('MAIL_ALIAS', '/etc/valiases/');
+define('MAIL_UID',  8);
+define('MAIL_USER', 'mail');
+define('MAIL_GROUP', 'mail');
+
 /**
  * Courier management class.
  *
@@ -190,7 +196,7 @@ class Courier
 	{
 		if( is_null($mail_uid) || is_null($mail_gid) )
 		{
-			$userdata = Machine::user('mail');
+			$userdata = Machine::user(MAIL_USER);
 			
 			$mail_uid = (is_null($mail_uid)) ? $userdata['uid'] : $mail_uid;
 			$mail_gid = (is_null($mail_gid)) ? $userdata['gid'] : $mail_gid;
@@ -326,6 +332,29 @@ class Courier
 		{
 			return false;
 		}
+	}
+	
+	public static function setup($domain)
+	{
+		if( !is_dir(MAIL_DIR . $domain) )
+		{
+			if( !mkdir(MAIL_DIR . $domain) )
+			{
+				return false;
+			}
+			
+			Machine::chown(MAIL_DIR . $domain, MAIL_USER, MAIL_GROUP);
+		}
+		
+		if( !is_file(MAIL_ALIAS . $domain) )
+		{
+			if( !file_put_contents(MAIL_ALIAS . $domain, '*: :fail: No user at this address.') )
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
 ?>
