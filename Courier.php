@@ -192,7 +192,7 @@ class Courier
 	 * 
 	 * @return bool
 	 */
-	public static function addAccount( $email, $home, $mail, $mail_uid = NULL, $mail_gid = NULL )
+	public static function addAccount( $email, $home, $mail, $mail_uid = MAIL_UID, $mail_gid = MAIL_UID )
 	{
 		if( is_null($mail_uid) || is_null($mail_gid) )
 		{
