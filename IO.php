@@ -64,5 +64,3 @@ class IO
 		return trim(fgets(STDIN));
 	}
 }
-
-?>

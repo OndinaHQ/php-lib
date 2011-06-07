@@ -156,4 +156,3 @@ class Machine
 		return ( in_array($domain, $domains) ) ? true : false;
 	}
 }
-?>
