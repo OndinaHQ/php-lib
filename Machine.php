@@ -2,16 +2,17 @@
 /**
  * Machine class
  *
- * @package             Framework
+ * @package Framework
  */
 
 /**
+ * Machine
+ * 
  * System access management class.
  *
- * @author              Marco Ceppi <marco.ceppi@seacrow.org>
- * @since               November 8, 2010
- * @package             Framework
- * @subpackage          System
+ * @author Marco Ceppi <marco@ceppi.net>
+ * @package Framework
+ * @subpackage Machine
  */
 class Machine
 {
@@ -56,6 +57,7 @@ class Machine
 			foreach( $paths as $path )
 			{
 				$directory = opendir($path);
+				
 				while( ($file = readdir($directory)) !== false )
 				{
 					if( $file != '.' && $file != '..' )
@@ -89,6 +91,7 @@ class Machine
 			foreach( $paths as $path )
 			{
 				$func = (is_dir($file)) ? 'rmdir' : 'unlink';
+				
 				if( !@$func($file) )
 				{
 					return false;
@@ -154,5 +157,68 @@ class Machine
 		$domains = self::domains();
 		
 		return ( in_array($domain, $domains) ) ? true : false;
+	}
+	
+	public static function owner( $domain )
+	{
+		$userdomains = file('/etc/userdomains', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		
+		$matches = preg_grep('/^' . $domain . ' /', $userdomains);
+		
+		if( count($matches) > 0 )
+		{
+			list( , $user) = explode(' ', array_shift($matches));
+			
+			return $user;
+		}
+		
+		return false;
+	}
+	
+	public static function user_owns( $user, $domain )
+	{
+		$userdomains = self::userdomains($user);
+		
+		return (in_array($domain, $userdomains)) ? true : false;
+	}
+	
+	public static function userdomains( $user = false )
+	{
+		$userdomains_contents = file('/etc/userdomains', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		$userdomains = array();
+		
+		foreach( $userdomains_contents as $line )
+		{
+			list($domain, $owner) = explode(' ', $line);
+			
+			if( !array_key_exists($owner, $userdomains) )
+			{
+				$userdomains[$owner] = array();
+			}
+			
+			$userdomains[$owner][] = $domain;
+			
+			unset($owner, $domain);
+		}
+		
+		if( !$user )
+		{
+			return $userdomains;
+		}
+		elseif( is_array($user) )
+		{
+			$output = array();
+			
+			foreach( $user as $el )
+			{
+				$output[$el] = $userdomains[$el];
+			}
+			
+			return $output;
+		}
+		else
+		{
+			return $userdomains[$user];
+		}
 	}
 }
