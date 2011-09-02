@@ -53,6 +53,29 @@ class Apache extends Meta
 		return ( $status > 0 ) ? false : true;
 	}
 	
+	public static function defaults( $template )
+	{
+		$template_file = OWN_PATH . '/templates/' . $template . '.tpl';
+		
+		if( is_file( OWN_PATH . '/templates/' . $template . '.tpl') )
+		{
+			if( preg_match_all("/\[([A-Z_-]*?)\]/", file_get_contents($template_file), $matches) > 0 )
+			{
+				$defaults = array_unique($matches[1]);
+				
+				return $defaults;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			throw new Exception(APACHE_TEMPLATE_NOTFOUND);
+		}
+	}
+	
 	public static function generate( $user, $domain )
 	{
 		// Load meta data
