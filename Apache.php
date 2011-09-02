@@ -53,7 +53,7 @@ class Apache extends Meta
 		return ( $status > 0 ) ? false : true;
 	}
 	
-	public static function config( $user, $domain )
+	public static function generate( $user, $domain )
 	{
 		// Load meta data
 		
@@ -134,7 +134,7 @@ class Apache extends Meta
 		// After we save the meta data we need to rebuild the configuration file
 		if( parent::save($user, $domain, $data) )
 		{
-			return self::config($user, $domain);
+			return self::generate($user, $domain);
 		}
 		else
 		{
