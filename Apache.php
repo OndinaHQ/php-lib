@@ -9,8 +9,9 @@ define('APACHE_DIR', '/etc/apache2');
 define('APACHE_TEST_FAILED', 'Apache failed testing, changes reverted.');
 define('APACHE_RELOAD_FAILED', 'Apache failed during reload, any changes have been reverted.');
 define('APACHE_RESTART_FAILED', 'Apache failed during a restart.');
-define('APACHE_DISABLE_FAILED', 'The domain name was not disabled');
-define('APACHE_ENABLE_FAILED', 'The domain name was not enabled');
+define('APACHE_DISABLE_FAILED', 'The domain name was not disabled.');
+define('APACHE_ENABLE_FAILED', 'The domain name was not enabled.');
+define('APACHE_TEMPLATE_NOTFOUND', 'The template file could not be loaded.');
 
 /**
  * Apache
