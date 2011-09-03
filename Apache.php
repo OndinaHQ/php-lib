@@ -13,6 +13,8 @@ define('APACHE_DISABLE_FAILED', 'The domain name was not disabled.');
 define('APACHE_ENABLE_FAILED', 'The domain name was not enabled.');
 define('APACHE_TEMPLATE_NOTFOUND', 'The template file could not be loaded.');
 
+require_once('Meta.php');
+
 /**
  * Apache
  * 
