@@ -5,8 +5,10 @@
  * @package Framework
  */
 
+
+
 /**
- * Machine
+ * Meta
  * 
  * System access management class.
  *
