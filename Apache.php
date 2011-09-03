@@ -46,7 +46,7 @@ class Apache extends Meta
 		return self::_cmd('start');
 	}
 	
-	private static function _cmd($action)
+	private static function _cmd( $action )
 	{
 		system("service apache2 $action", $status);
 		
