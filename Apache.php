@@ -80,17 +80,44 @@ class Apache extends Meta
 	
 	public static function generate( $user, $domain )
 	{
-		// Load meta data
+		$meta = self::get($user, $domain, true);
 		
-		// Load template
+		$template_file = OWN_PATH . '/templates/' . $meta['global']['template'] . '.tpl';
+		$params = $meta['params'];
 		
-		// Perform a replace
+		if( !is_file($template_file) )
+		{
+			throw new Exception(APACHE_TEMPLATE_NOTFOUND);
+		}
 		
-		// Check for missing keys
+		$defaults = array_keys(self::defaults($template_file));
 		
-		// Save configuration file
+		$config = file_get_contents($template_file);
 		
-		// Exit
+		foreach( $defaults as $arr_key )
+		{
+			if( !array_key_exists($arr_key, $params) )
+			{
+				throw new Exception(APACHE_TEMPLATE_MISMATCH);
+			}
+			
+			$config = str_replace("[$arr_key]", $params[$arr_key], $config);
+		}
+		
+		// This really should never occur based on our previous check. Though you can never be too sure
+		if( preg_match("/\[(A-Z)*?\]/", $config) )
+		{
+			throw new Exception(APACHE_TEMPLATE_MISMATCH);
+		}
+		
+		if( !is_dir(APACHE_DIR . "/sites-available/$user") )
+		{
+			mkdir(APACHE_DIR . "/sites-available/$user");
+		}
+		
+		
+		
+		return (file_put_contents(APACHE_DIR . "/sites-available/$user/$domain", $config) === false) ? false : true;
 	}
 	
 	public static function enable( $user, $domain )
