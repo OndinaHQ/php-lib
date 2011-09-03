@@ -22,19 +22,34 @@ class Meta
 	
 	public static function get( $user, $domain, $assoc = false )
 	{
-		if( $path )
+		if( static::$path )
 		{
-			$meta = "$path/$user/$domain";
+			$meta = static::$path . "/$user/$domain";
 			
 			return ( is_file($meta) ) ? json_decode(self::get_raw($meta), $assoc) : false;
 		}
 	}
 	
+	public static protected get_raw( $path )
+	{
+		return file_get_contents($path);
+	}
+	
 	public static function save( $user, $domain, $data )
 	{
+		if( !is_dir(static::$path) )
+		{
+			mkdir(static::$path);
+		}
+		
+		if( !is_dir(static::$path . "/$user") )
+		{
+			mkdir(static::$path . "/$user");
+		}
+		
 		if( is_array($data) )
 		{
-			$meta = "$path/$user/$domain";
+			$meta = static::$path . "/$user/$domain";
 			
 			return (!file_put_contents($meta, json_encode($data))) ? false : true;
 		}
