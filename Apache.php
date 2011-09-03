@@ -178,9 +178,10 @@ class Apache extends Meta
 	{
 		$msg = system('apachectl testconfig', $status);
 		
-		return ( $status == 0 && $msg == 'Syntax OK' ) ? true : false
+		return ( $status == 0 && $msg == 'Syntax OK' ) ? true : false;
 	}
 	
+	/** Not sure about this.
 	public static function save( $user, $domain, $data )
 	{
 		// After we save the meta data we need to rebuild the configuration file
@@ -193,4 +194,5 @@ class Apache extends Meta
 			return false;
 		}
 	}
+	*/
 }
