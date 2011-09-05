@@ -30,7 +30,7 @@ class Meta
 		}
 	}
 	
-	public static protected get_raw( $path )
+	protected static function get_raw( $path )
 	{
 		return file_get_contents($path);
 	}
