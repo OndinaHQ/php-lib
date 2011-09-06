@@ -115,8 +115,6 @@ class Apache extends Meta
 			mkdir(APACHE_DIR . "/sites-available/$user");
 		}
 		
-		
-		
 		return (file_put_contents(APACHE_DIR . "/sites-available/$user/$domain", $config) === false) ? false : true;
 	}
 	

@@ -57,7 +57,7 @@ class Accounts
 		
 		foreach( $data_array as $line )
 		{
-			list($domain, $user) = explode(" ", $line);
+			list($domain, $user) = explode(' ', $line);
 			
 			$userdomains[$user][$domain] = NULL;
 		}
