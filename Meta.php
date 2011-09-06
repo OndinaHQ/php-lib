@@ -51,9 +51,14 @@ class Meta
 		{
 			$meta = static::$path . "/$user/$domain";
 			
-			return (!file_put_contents($meta, json_encode($data))) ? false : true;
+			return static::set_raw($meta, $data);
 		}
 		
 		return false;
-	}		
+	}
+	
+	protected static function set_raw( $path, $data )
+	{
+		return (!file_put_contents($path, json_encode($data))) ? false : true;
+	}
 }
