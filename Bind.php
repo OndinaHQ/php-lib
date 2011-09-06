@@ -60,6 +60,19 @@ class Bind_Client extends Bind
 		
 		return file_get_contents('https://api:9001/meta/' . str_replace('/etc/meta/', '', $path), false, $context);
 	}
+	
+	protected static function set_raw( $path, $data )
+	{
+		$context = stream_context_create(array( 
+			'http' => array(
+				'method'  => 'POST', 
+				'header'  => sprintf("Authorization: Basic %s\r\n", base64_encode('admin:hello')). "Content-type: application/json\r\n", 
+				'content' => json_encode($data)
+			), 
+		));
+		
+		return (!@file_get_contents('https://api:9001/meta/' . str_replace('/etc/meta/', '', $path), false, $context)) ? false : true;
+	}
 }
 
 class Bind_Server extends Bind
