@@ -51,17 +51,12 @@ class Bind_Client extends Bind
 	// This needs to be a call to the API!
 	protected static function get_raw( $path )
 	{
-		$context = stream_context_create
-		(
-			array
-			(
-				'http' => array
-				(
-					'method'  => 'GET',
-					'header'  => 'Authorization: Basic ' . base64_encode('admin:hello'),
-				)
+		$context = stream_context_create(array(
+			'http' => array(
+				'method'  => 'GET',
+				'header'  => 'Authorization: Basic ' . base64_encode('admin:hello'),
 			)
-		);
+		));
 		
 		return file_get_contents('https://api:9001/meta/' . str_replace('/etc/meta/', '', $path), false, $context);
 	}
