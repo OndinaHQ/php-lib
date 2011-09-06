@@ -8,6 +8,7 @@
 define('BIND_TEMPLATE_NOTFOUND', 'The template file could not be loaded.');
 
 require_once('Meta.php');
+require_once('API.php');
 
 define('NAMED_DIR', '/etc/bind');
 
@@ -54,7 +55,7 @@ class Bind_Client extends Bind
 		$context = stream_context_create(array(
 			'http' => array(
 				'method'  => 'GET',
-				'header'  => 'Authorization: Basic ' . base64_encode('admin:hello'),
+				'header'  => 'Authorization: Basic ' . API::digest(),
 			)
 		));
 		
@@ -66,7 +67,7 @@ class Bind_Client extends Bind
 		$context = stream_context_create(array( 
 			'http' => array(
 				'method'  => 'POST', 
-				'header'  => sprintf("Authorization: Basic %s\r\n", base64_encode('admin:hello')). "Content-type: application/json\r\n", 
+				'header'  => sprintf("Authorization: Basic %s\r\n", API::digest()). "Content-type: application/json\r\n", 
 				'content' => json_encode($data)
 			), 
 		));
@@ -168,6 +169,6 @@ class Bind_Server extends Bind
 			$zone .= implode('', $lines);
 		}
 		
-		file_put_contents("/etc/bind/zones/$user/$domain.db", $zone);
+		file_put_contents(NAMED_DIR . "/zones/$user/$domain.db", $zone);
 	}
 }
