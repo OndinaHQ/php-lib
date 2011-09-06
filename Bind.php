@@ -103,4 +103,71 @@ class Bind_Server extends Bind
 		
 		return ( $status > 0 ) ? false : true;
 	}
+	
+	public static function generate( $user, $domain )
+	{
+		// This will pull the META data from disk and return in an assoc array
+		$meta = Bind_Client::get($user, $domain, true);
+		
+		$template_path = OWN_PATH . '/templates';
+		$parsed = array();
+		
+		foreach( $meta['lines'] as $key => $entries )
+		{
+			$is_opt = $is_ns = false;
+			
+			switch( $key )
+			{
+				case 'SOA':
+					$zone = str_replace('[USER]', $user, file_get_contents("$template_path/zone.tpl"));
+					$zone = str_replace('[DOMAIN]', $domain, $zone);
+					$zone = str_replace('[TTL]', $meta['zone']['ttl'], $zone);
+					
+					foreach( $entries as $el => $val )
+					{
+						$el = strtoupper($el);
+						$zone = str_replace("[$el]", $val, $zone);
+					}
+					
+				break;
+				case 'MX':
+				case 'TXT':
+					$is_opt = true;
+				case 'NS':
+				case 'A':
+				case 'CNAME':
+				default:
+					if( !array_key_exists($key, $parsed) )
+					{
+						$parsed[$key] = array();
+					}
+					
+					foreach( $entries as $entry )
+					{
+						$line = ($is_opt) ? file_get_contents("$template_path/opt-line.tpl") : file_get_contents("$template_path/line.tpl");
+						$line = str_replace('[CLASS]', $key, $line);
+						
+						foreach( $entry as $el => $val )
+						{
+							$el = strtoupper($el);
+							$line = str_replace("[$el]", $val, $line);
+						}
+						
+						$parsed[$key][] = $line;
+						unset($line);
+					}
+				break;
+			}
+		}
+		
+		$zone .= implode('', $parsed['NS']);
+		unset($parsed['NS']);
+		
+		foreach( $parsed as $lines )
+		{
+			$zone .= implode('', $lines);
+		}
+		
+		file_put_contents("/etc/bind/zones/$user/$domain.db", $zone);
+	}
 }
