@@ -26,7 +26,7 @@ class Meta
 		{
 			$meta = static::$path . "/$user/$domain";
 			
-			return ( is_file($meta) ) ? json_decode(self::get_raw($meta), $assoc) : false;
+			return json_decode(static::get_raw($meta), $assoc);
 		}
 	}
 	
