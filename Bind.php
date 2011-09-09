@@ -45,6 +45,27 @@ class Bind extends Meta
 			throw new Exception(BIND_TEMPLATE_NOTFOUND);
 		}
 	}
+	
+	public static function validate( $raw, $type )
+	{
+		switch(strtoupper($type))
+		{
+			case 'CNAME':
+			case 'MX':
+				
+			break;
+			case 'A':
+				return (filter_var($raw, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) === false) ? false : true;
+			break;
+			case 'AAAA':
+				return (filter_var($raw, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) === false) ? false : true;
+			case 'TXT':
+				return true;
+			break;
+		}
+		
+		return false;
+	}
 }
 
 class Bind_Client extends Bind
