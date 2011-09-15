@@ -6,7 +6,6 @@
  */
 
 require_once('Machine.php');
-require_once('IO.php');
 
 define('MAIL_DIR',   '/var/mail/virtual/');
 define('MAIL_ALIAS', '/etc/valiases/');
@@ -20,15 +19,10 @@ define('MAIL_GROUP', 'mail');
  * @author              Marco Ceppi <marco.ceppi@seacrow.org>
  * @since               November 9, 2010
  * @package             Framework
- * @subpackage          Users
+ * @subpackage          Courier
  */
 class Courier
 {
-	function Courier()
-	{
-		// Not sure if we're going to construct yet...
-	}
-	
 	/**
 	 * Users Method
 	 * 
@@ -129,7 +123,7 @@ class Courier
 		return $aliases;
 	}
 	
-	public static function setAlias( $domain, $data )
+	public static function alias( $domain, $data )
 	{
 		if( Machine::is_domain($domain) )
 		{
@@ -160,7 +154,7 @@ class Courier
 	 * 
 	 * @return bool
 	 */
-	public static function makeUserdb()
+	public static function userdb()
 	{
 		system('makeuserdb', $status);
 		
@@ -174,7 +168,7 @@ class Courier
 	 * 
 	 * @return bool
 	 */
-	public static function makeMailDir( $dir )
+	public static function maildir( $dir )
 	{
 		system("maildirmake $dir", $status);
 		
@@ -192,7 +186,7 @@ class Courier
 	 * 
 	 * @return bool
 	 */
-	public static function addAccount( $email, $home, $mail, $mail_uid = MAIL_UID, $mail_gid = MAIL_UID )
+	public static function add_account( $email, $home, $mail, $mail_uid = MAIL_UID, $mail_gid = MAIL_UID )
 	{
 		if( is_null($mail_uid) || is_null($mail_gid) )
 		{
@@ -214,7 +208,7 @@ class Courier
 			return false;
 		}
 		
-		self::makeMailDir($mail);
+		self::maildir($mail);
 		Machine::chown($home, 'mail', 'mail', true);
 
 		system("userdb $email set uid=$mail_uid gid=$mail_gid home=$home mail=$mail", $status);
@@ -222,13 +216,13 @@ class Courier
 		if( $status > 0 )
 		{
 			//Whoops. We've got an issue. Backup slowly.
-			self::removeAccount($email);
+			self::del_account($email);
 			
 			return false;
 		}
 		else
 		{
-			self::makeUserdb();
+			self::userdb();
 			
 			return true;
 		}
@@ -241,7 +235,7 @@ class Courier
 	 * 
 	 * @return bool
 	 */
-	public static function removeAccount( $username )
+	public static function del_account( $username )
 	{
 		if( !$userdata = self::account($username) )
 		{
@@ -253,7 +247,7 @@ class Courier
 		
 		system("userdb $username del", $status);
 		
-		self::makeUserdb();
+		self::userdb();
 		
 		return ( $status > 0 ) ? false : true;
 	}
@@ -279,19 +273,15 @@ class Courier
 		return true;
 	}
 	
-	public static function addForwarder($from, $to)
+	public static function forward($from, $to)
 	{
 		$tmp = explode('@', $from);
 		$username = $tmp[0];
 		$domain = $tmp[1];
 		
-		IO::write('Testing if a domain', DEBUG);
-		
 		if( Machine::is_domain($domain) )
 		{
 			$aliases = self::aliases($domain);
-			IO::write('Gather list of aliases', DEBUG);
-			IO::write($aliases, DEBUG);
 			
 			if( !array_key_exists($username, $aliases[$domain]) )
 			{
@@ -306,7 +296,7 @@ class Courier
 			{
 				$aliases[$domain][$username][0] = $to;
 				
-				if( !self::setAlias($domain, $aliases[$domain]) )
+				if( !self::alias($domain, $aliases[$domain]) )
 				{
 					return false;
 				}
@@ -319,7 +309,7 @@ class Courier
 				}
 				else
 				{
-					if( !self::setAlias($domain, $aliases[$domain]) )
+					if( !self::alias($domain, $aliases[$domain]) )
 					{
 						return false;
 					}
