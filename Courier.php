@@ -131,7 +131,7 @@ class Courier
 			
 			foreach( $data as $user => $alias )
 			{
-				$alias = @implode(' ', $alias);
+				$alias = @implode(', ', $alias);
 				
 				$line = "$user: $alias";
 				$out[] = $line;
