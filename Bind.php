@@ -52,7 +52,8 @@ class Bind extends Meta
 		{
 			case 'CNAME':
 			case 'MX':
-				
+				// NEED TO IMPLEMENT
+				return true;
 			break;
 			case 'A':
 				return (filter_var($raw, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) === false) ? false : true;
