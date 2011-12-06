@@ -129,16 +129,21 @@ class Courier
 		{
 			$out = array();
 			
-			foreach( $data as $user => $alias )
+			if( is_array($data) )
 			{
-				$alias = @implode(', ', $alias);
+				foreach( $data as $user => $alias )
+				{
+					if( is_array($alias) )
+					{
+						$alias = @implode(', ', $alias);
+					}
+					
+					$out[] = "$user: $alias";
+				}
 				
-				$line = "$user: $alias";
-				$out[] = $line;
+				$out = @implode("\n", $out);
 			}
-			
-			$out = @implode("\n", $out);
-			
+
 			file_put_contents("/etc/valiases/$domain", $out);
 			
 			return true;
@@ -275,9 +280,7 @@ class Courier
 	
 	public static function forward($from, $to)
 	{
-		$tmp = explode('@', $from);
-		$username = $tmp[0];
-		$domain = $tmp[1];
+		list($username, $domain) = explode('@', $from);
 		
 		if( Machine::is_domain($domain) )
 		{
