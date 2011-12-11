@@ -52,6 +52,16 @@ class IO
 		}
 	}
 	
+	public static function json($data)
+	{
+		if( !is_array($data) )
+		{
+			$data = array($data);
+		}
+		
+		self::write(json_encode($data));
+	}
+	
 	public static function debug($msg)
 	{
 		self::write("DEBUG: $msg", DEBUG);
