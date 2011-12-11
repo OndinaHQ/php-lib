@@ -74,27 +74,12 @@ class Bind_Client extends Bind
 	// This needs to be a call to the API!
 	protected static function get_raw( $path )
 	{
-		$context = stream_context_create(array(
-			'http' => array(
-				'method'  => 'GET',
-				'header'  => 'Authorization: Basic ' . API::digest(),
-			)
-		));
-		
-		return file_get_contents('https://api:9001/meta/' . str_replace('/etc/meta/', '', $path), false, $context);
+		return API::get('dns', str_replace('/etc/', '', $path));
 	}
 	
 	protected static function set_raw( $path, $data )
-	{
-		$context = stream_context_create(array( 
-			'http' => array(
-				'method'  => 'POST', 
-				'header'  => sprintf("Authorization: Basic %s\r\n", API::digest()). "Content-type: application/json\r\n", 
-				'content' => json_encode($data)
-			), 
-		));
-		
-		return (!@file_get_contents('https://api:9001/meta/' . str_replace('/etc/meta/', '', $path), false, $context)) ? false : true;
+	{		
+		return API::set('dns', str_replace('/etc/', '', $path), $data);
 	}
 }
 
