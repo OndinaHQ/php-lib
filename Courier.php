@@ -398,4 +398,9 @@ class Courier_Client extends API
 	{
 		return API::set('dagobah', 'email/account/create', array('email' => $email));
 	}
+	
+	public static function forward( $email, $to )
+	{
+		return API::set('dagobah', 'email/alias/' . $email, array('to' => $to));
+	}
 }
