@@ -258,6 +258,32 @@ class Courier
 		return ( $status > 0 ) ? false : true;
 	}
 	
+	/**
+	 * Remove Courier mail forwarder
+	 * 
+	 * @param string $address Email user to remove from Courier Database
+	 * 
+	 * @return bool
+	 */
+	public static function del_forwarder( $address )
+	{
+		list($username, $domain) = explode('@', $address);
+		
+		$aliases = self::aliases($domain);
+		
+		if( array_key_exists($username, $aliases[$domain]) )
+		{
+			unset($aliases[$domain][$username]);
+			
+			if( !self::alias($domain, $aliases[$domain]) )
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	public static function password($account, $password)
 	{
 		if( !self::account($account) )
