@@ -52,6 +52,8 @@ class Courier
 				$tmp[$key] = $val;
 			}
 			
+			$tmp['size'] = trim(shell_exec("du -sh " . $tmp['mail'] . " | awk '{ print $1 }'"));
+			
 			$users[$user] = $tmp;
 		}
 		
