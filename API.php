@@ -52,7 +52,7 @@ class API
 	
 	public static function del( $server, $path )
 	{
-		static::delete($server, $path);
+		return static::delete($server, $path);
 	}
 	
 	public static function delete( $server, $path )
@@ -66,7 +66,6 @@ class API
 			)
 		));
 		
-		@file_get_contents('https://' . $server . ':9001/'. $path, false, $context);
-		return true;
+		return (!@file_get_contents('https://' . $server . ':9001/'. $path, false, $context)) ? false : true;
 	}
 }
