@@ -66,6 +66,7 @@ class API
 			)
 		));
 		
-		return (!@file_get_contents('https://' . $server . ':9001/'. $path, false, $context)) ? false : true;
+		@file_get_contents('https://' . $server . ':9001/'. $path, false, $context);
+		return true;
 	}
 }
