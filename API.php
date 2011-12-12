@@ -24,10 +24,12 @@ class API
 	// This needs to be a call to the API!
 	public static function get( $server, $path )
 	{
-		$context = stream_context_create(array(
-			'http' => array(
+		$context = stream_context_create(array
+		(
+			'http' => array
+			(
 				'method'  => 'GET',
-				'header'  => 'Authorization: Basic ' . static::digest(),
+				'header'  => 'Authorization: Basic ' . static::digest()
 			)
 		));
 		
@@ -36,12 +38,32 @@ class API
 	
 	public static function set( $server, $path, $data )
 	{
-		$context = stream_context_create(array( 
+		$context = stream_context_create(array
+		(
 			'http' => array(
 				'method'  => 'POST', 
 				'header'  => sprintf("Authorization: Basic %s\r\n", static::digest()). "Content-type: application/json\r\n", 
 				'content' => json_encode($data)
-			),
+			)
+		));
+		
+		return (!@file_get_contents('https://' . $server . ':9001/'. $path, false, $context)) ? false : true;
+	}
+	
+	public static function del( $server, $path )
+	{
+		static::delete($server, $path);
+	}
+	
+	public static function delete( $server, $path )
+	{
+		$context = stream_context_create(array
+		( 
+			'http' => array
+			(
+				'method'  => 'DELETE', 
+				'header'  => 'Authorization: Basic ' . static::digest()
+			)
 		));
 		
 		return (!@file_get_contents('https://' . $server . ':9001/'. $path, false, $context)) ? false : true;
