@@ -362,7 +362,7 @@ class Courier_Client extends API
 {
 	public static function accounts()
 	{
-		return json_decode(API::get('dagobah', 'email/account/dummy'));
+		return json_decode(API::get('dagobah', 'email/account'));
 	}
 	
 	public static function aliases( $domain )
