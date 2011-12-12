@@ -372,11 +372,11 @@ class Courier_Client extends API
 	
 	public static function password( $account, $password )
 	{
-		return API::set('dagobah', 'email/account', array('account' => $account, 'password' => $password));
+		return API::set('dagobah', 'email/account/password', array('account' => $account, 'password' => $password));
 	}
 	
 	public static function add_account( $email )
 	{
-		return API::set('dagobah', 'email/account', array('email' => $email));
+		return API::set('dagobah', 'email/account/create', array('email' => $email));
 	}
 }
