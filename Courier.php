@@ -311,13 +311,7 @@ class Courier
 				{
 					$to = explode(',', str_replace(' ', '', $to));
 					
-					if( !empty($aliases[$domain][$username][0]) )
-					{
-						array_unshift($to, $aliases[$domain][$username][0]);
-					}
-					
 					$aliases[$domain][$username] = $to;
-					
 					if( !self::alias($domain, $aliases[$domain]) )
 					{
 						return false;
