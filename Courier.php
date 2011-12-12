@@ -6,6 +6,7 @@
  */
 
 require_once('Machine.php');
+require_once('API.php');
 
 define('MAIL_DIR',   '/var/mail/virtual/');
 define('MAIL_ALIAS', '/etc/valiases/');
@@ -348,5 +349,34 @@ class Courier
 		}
 		
 		return true;
+	}
+}
+
+// Move Courier over
+class Courier_Server extends Courier
+{
+	
+}
+
+class Courier_Client extends API
+{
+	public static function accounts()
+	{
+		return json_decode(API::get('dagobah', 'email/account/dummy'));
+	}
+	
+	public static function aliases( $domain )
+	{
+		return json_decode(API::get('dagobah', 'email/aliases/' . $domain));
+	}
+	
+	public static function password( $account, $password )
+	{
+		return API::set('dagobah', 'email/account', array('account' => $account, 'password' => $password));
+	}
+	
+	public static function add_account( $email )
+	{
+		return API::set('dagobah', 'email/account', array('email' => $email));
 	}
 }
