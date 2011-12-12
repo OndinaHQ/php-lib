@@ -111,7 +111,7 @@ class Courier
 				list($user, $forwarder) = explode(': ', $line, 2);
 				if( $user != '*' )
 				{
-					$alias = explode(' ', $forwarder);
+					$alias = explode(', ', $forwarder);
 					$aliases[$domain][$user] = $alias;
 				}
 				else
