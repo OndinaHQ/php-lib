@@ -423,4 +423,14 @@ class Courier_Client extends API
 	{
 		return API::set('dagobah', 'email/alias/' . $email, array('to' => $to));
 	}
+	
+	public static function del_account( $email )
+	{
+		return API::del('dagobah', 'email/account/' . $email, array('to' => $to));
+	}
+	
+	public static function del_alias( $email )
+	{
+		return API::del('dagobah', 'email/alias/' . $email, array('to' => $to));
+	}
 }
