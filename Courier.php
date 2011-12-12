@@ -279,7 +279,7 @@ class Courier
 		return true;
 	}
 	
-	public static function forward($from, $to)
+	public static function forward($from, $to, $overwrite = false)
 	{
 		list($username, $domain) = explode('@', $from);
 		
@@ -307,15 +307,34 @@ class Courier
 			}
 			else
 			{
-				if( !array_unshift($aliases[$domain][$username], $to) > 1 )
+				if( $overwrite )
 				{
-					return false;
-				}
-				else
-				{
+					$to = explode(',', str_replace(' ', '', $to));
+					
+					if( !empty($aliases[$domain][$username][0]) )
+					{
+						array_unshift($to, $aliases[$domain][$username][0]);
+					}
+					
+					$aliases[$domain][$username] = $to;
+					
 					if( !self::alias($domain, $aliases[$domain]) )
 					{
 						return false;
+					}
+				}
+				else
+				{
+					if( !array_unshift($aliases[$domain][$username], $to) > 1 )
+					{
+						return false;
+					}
+					else
+					{
+						if( !self::alias($domain, $aliases[$domain]) )
+						{
+							return false;
+						}
 					}
 				}
 			}
