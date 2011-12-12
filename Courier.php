@@ -273,7 +273,7 @@ class Courier
 		}
 		else
 		{
-			self::makeUserdb();
+			self::userdb();
 		}
 		
 		return true;
