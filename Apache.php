@@ -57,7 +57,7 @@ class Apache extends Meta
 	
 	public static function defaults( $template )
 	{
-		if( !is_file($template_file) )
+		if( !is_file($template) )
 		{
 			$template_file = OWN_PATH . '/templates/' . $template . '.tpl';
 		}
