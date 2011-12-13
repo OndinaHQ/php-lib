@@ -16,6 +16,8 @@ require_once('/opt/tools/.passwd');
  */
 class API
 {
+	static $server;
+	
 	public static function digest()
 	{
 		return base64_encode(API_USERNAME . ':' . API_PASSWORD);

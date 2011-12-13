@@ -403,36 +403,36 @@ class Courier_Client extends API
 {
 	public static function accounts()
 	{
-		return json_decode(API::get('dagobah', 'email/account'), true);
+		return json_decode(API::get(static::$server, 'email/account'), true);
 	}
 	
 	public static function aliases( $domain )
 	{
-		return json_decode(API::get('dagobah', 'email/alias/' . $domain), true);
+		return json_decode(API::get(static::$server, 'email/alias/' . $domain), true);
 	}
 	
 	public static function password( $account, $password )
 	{
-		return API::set('dagobah', 'email/account/password', array('account' => $account, 'password' => $password));
+		return API::set(static::$server, 'email/account/password', array('account' => $account, 'password' => $password));
 	}
 	
 	public static function add_account( $email )
 	{
-		return API::set('dagobah', 'email/account/create', array('email' => $email));
+		return API::set(static::$server, 'email/account/create', array('email' => $email));
 	}
 	
 	public static function forward( $email, $to )
 	{
-		return API::set('dagobah', 'email/alias/' . $email, array('to' => $to));
+		return API::set(static::$server, 'email/alias/' . $email, array('to' => $to));
 	}
 	
 	public static function del_account( $email )
 	{
-		return API::del('dagobah', 'email/account/' . $email, array('to' => $to));
+		return API::del(static::$server, 'email/account/' . $email, array('to' => $to));
 	}
 	
 	public static function del_alias( $email )
 	{
-		return API::del('dagobah', 'email/alias/' . $email, array('to' => $to));
+		return API::del(static::$server, 'email/alias/' . $email, array('to' => $to));
 	}
 }
