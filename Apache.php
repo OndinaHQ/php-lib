@@ -201,3 +201,11 @@ class Apache extends Meta
 	}
 	*/
 }
+
+class Apache_Client extends API
+{
+	public static function add($template, $data)
+	{
+		//data = user, domain, serveradmin, [all-other-variables-from-tpl]
+	}
+}
