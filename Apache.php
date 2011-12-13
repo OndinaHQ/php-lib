@@ -57,9 +57,16 @@ class Apache extends Meta
 	
 	public static function defaults( $template )
 	{
-		$template_file = OWN_PATH . '/templates/' . $template . '.tpl';
+		if( !is_file($template_file) )
+		{
+			$template_file = OWN_PATH . '/templates/' . $template . '.tpl';
+		}
+		else
+		{
+			$template_file = $template;
+		}
 		
-		if( is_file( OWN_PATH . '/templates/' . $template . '.tpl') )
+		if( is_file($template_file) )
 		{
 			if( preg_match_all("/\[([A-Z_-]*?)\]/", file_get_contents($template_file), $matches) > 0 )
 			{
