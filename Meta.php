@@ -24,9 +24,25 @@ class Meta
 	{
 		if( static::$path )
 		{
-			$meta = static::$path . "/$user/$domain";
-			
-			return json_decode(static::get_raw($meta), $assoc);
+			if( empty($domain) )
+			{
+				$meta = static::$path . "/$user/*";
+				$metadata = array();
+				$meta_files = glob($meta);
+				
+				foreach( $meta_files as $file )
+				{
+					$metadata[basename($file)] = json_decode(static::get_raw($meta), $assoc);
+				}
+				
+				return $metadata;
+			}
+			else
+			{
+				$meta = static::$path . "/$user/$domain";
+				
+				return json_decode(static::get_raw($meta), $assoc);
+			}
 		}
 	}
 	
