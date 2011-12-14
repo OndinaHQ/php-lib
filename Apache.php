@@ -186,6 +186,11 @@ class Apache extends Meta
 		return ( $status == 0 && $msg == 'Syntax OK' ) ? true : false;
 	}
 	
+	public static function domains( $username )
+	{
+		return static::get($username, '', true);
+	}
+	
 	/** Not sure about this.
 	public static function save( $user, $domain, $data )
 	{
@@ -207,5 +212,10 @@ class Apache_Client extends API
 	public static function add($template, $data)
 	{
 		//data = user, domain, serveradmin, [all-other-variables-from-tpl]
+	}
+	
+	public static function domains( $username )
+	{
+		return json_decode(static::get(static::$server, 'apache/domains/' . $username), true);
 	}
 }
