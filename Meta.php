@@ -32,7 +32,7 @@ class Meta
 				
 				foreach( $meta_files as $file )
 				{
-					$metadata[basename($file)] = json_decode(static::get_raw($meta), $assoc);
+					$metadata[basename($file)] = json_decode(static::get_raw($file), $assoc);
 				}
 				
 				return $metadata;
