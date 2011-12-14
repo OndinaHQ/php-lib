@@ -423,7 +423,7 @@ class Courier_Client extends API
 	
 	public static function forward( $email, $to )
 	{
-		return static:set(static::$server, 'email/alias/' . $email, array('to' => $to));
+		return static::set(static::$server, 'email/alias/' . $email, array('to' => $to));
 	}
 	
 	public static function del_account( $email )
