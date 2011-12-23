@@ -181,7 +181,7 @@ class Apache extends Meta
 	
 	public static function test()
 	{
-		$msg = system('apachectl testconfig', $status);
+		$msg = system('apache2ctl configtest', $status);
 		
 		return ( $status == 0 && $msg == 'Syntax OK' ) ? true : false;
 	}
