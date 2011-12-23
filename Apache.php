@@ -12,6 +12,7 @@ define('APACHE_RESTART_FAILED', 'Apache failed during a restart.');
 define('APACHE_DISABLE_FAILED', 'The domain name was not disabled.');
 define('APACHE_ENABLE_FAILED', 'The domain name was not enabled.');
 define('APACHE_TEMPLATE_NOTFOUND', 'The template file could not be loaded.');
+define('APACHE_TEMPLATE_MISMATCH', 'Not all parameters were satisfied in the template.');
 
 require_once('Meta.php');
 
@@ -97,8 +98,7 @@ class Apache extends Meta
 			throw new Exception(APACHE_TEMPLATE_NOTFOUND);
 		}
 		
-		$defaults = array_keys(self::defaults($template_file));
-		
+		$defaults = self::defaults($template_file);
 		$config = file_get_contents($template_file);
 		
 		foreach( $defaults as $arr_key )
