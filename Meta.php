@@ -48,7 +48,7 @@ class Meta
 	
 	protected static function get_raw( $path )
 	{
-		return file_get_contents($path);
+		return @file_get_contents($path);
 	}
 	
 	public static function save( $user, $domain, $data )
