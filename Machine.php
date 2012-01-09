@@ -234,8 +234,7 @@ class Machine_Client extends API
 	
 	public static function userdomains( $user = false )
 	{
-		$userdomains_contents = json_decode(static::get(static::$server, 'machine/userdomains'), true);
-		$userdomains = array();
+		$userdomains = json_decode(static::get(static::$server, 'machine/userdomains'), true);
 		
 		if( !$user )
 		{
