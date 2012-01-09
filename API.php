@@ -35,7 +35,7 @@ class API
 			)
 		));
 		
-		return file_get_contents('https://' . $server . ':9001/' . $path, false, $context);
+		return @file_get_contents('https://' . $server . ':9001/' . $path, false, $context);
 	}
 	
 	public static function set( $server, $path, $data )
