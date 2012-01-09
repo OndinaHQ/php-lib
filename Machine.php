@@ -222,3 +222,51 @@ class Machine
 		}
 	}
 }
+
+class Machine_Client extends API
+{
+	public static function domains()
+	{
+		return json_decode(static::get(static::$server, 'machine/domains'), true);
+	}
+	
+	public static function userdomains( $user = false )
+	{
+		$userdomains_contents = json_decode(static::get(static::$server, 'machine/userdomains'), true);
+		$userdomains = array();
+		
+		if( !$user )
+		{
+			return $userdomains;
+		}
+		elseif( is_array($user) )
+		{
+			$output = array();
+			
+			foreach( $user as $el )
+			{
+				$output[$el] = $userdomains[$el];
+			}
+			
+			return $output;
+		}
+		else
+		{
+			return $userdomains[$user];
+		}
+	}
+	
+	public static function user_owns( $user, $domain )
+	{
+		$userdomains = static::userdomains($user);
+		
+		return (in_array($domain, $userdomains)) ? true : false;
+	}
+	
+	public static function is_domain( $domain )
+	{
+		$domains = static::domains();
+		
+		return ( in_array($domain, $domains) ) ? true : false;
+	}
+}
