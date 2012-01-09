@@ -5,6 +5,8 @@
  * @package Framework
  */
 
+require_once('API.php');
+
 /**
  * Machine
  * 
