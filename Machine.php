@@ -47,6 +47,16 @@ class Machine
 		}
 	}
 	
+	/**
+	 * Remove a file or path
+	 * 
+	 * Performs a recursive delete on directories, or simply deletes a file
+	 * 
+	 * @param mixed $paths Array of paths, or path to be removed
+	 * @param boolean $recursive Whether or not directories should be recursively removed
+	 * 
+	 * @return boolean true|false
+	 */
 	public static function rm( $paths, $recursive = false )
 	{
 		if( !is_array($paths) )
