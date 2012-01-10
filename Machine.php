@@ -233,6 +233,16 @@ class Machine
 			return $userdomains[$user];
 		}
 	}
+	
+	public static function ssh_keygen( $filepath, $options = array() )
+	{
+		$default_options = array('comment' => 'autogend@' . date('Ymd.Hi'), 'passphrase' => '');
+		$options = $options + $default_options;
+		
+		system('ssh-keygen', $status);
+		
+		return ( $status > 0 ) ? false : true;
+	}
 }
 
 class Machine_Client extends API
