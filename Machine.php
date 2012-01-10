@@ -234,14 +234,34 @@ class Machine
 		}
 	}
 	
+	/**
+	 * SSH Key Generation
+	 * 
+	 * Generate an SSH key
+	 * 
+	 * @param string $filepath Path for the new key
+	 * @param array $options Optional list of additional options (comment, passphrase)
+	 * 
+	 * @return boolean
+	 */
 	public static function ssh_keygen( $filepath, $options = array() )
 	{
 		$default_options = array('comment' => 'autogend@' . date('Ymd.Hi'), 'passphrase' => '');
 		$options = $options + $default_options;
 		
-		system('ssh-keygen', $status);
+		if( !is_dir(dirname($filepath)) )
+		{
+			mkdir(dirname($filepath), 0750, true);
+		}
 		
-		return ( $status > 0 ) ? false : true;
+		if( !is_file($filepath) )
+		{
+			system(sprintf('ssh-keygen -q -f %s -N "%s" -C "%s"', $filepath, $options['passphrase'], $options['comment']), $status);
+			
+			return ( $status > 0 ) ? false : true;
+		}
+		
+		return false;
 	}
 }
 
