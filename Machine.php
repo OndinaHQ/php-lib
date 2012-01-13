@@ -311,11 +311,18 @@ class Machine_Client extends API
 		return ( in_array($domain, $domains) ) ? true : false;
 	}
 	
+	public static function ssh_keys( $account )
+	{
+		return json_decode(static::get(static::$server, 'machine/ssh_keys/' . $account), true);
+	}
+	
 	public static function ssh_copy_id( $account, $key )
 	{
 		if( is_file($key) )
 		{
 			$key = file_get_contents($key);
 		}
+		
+		
 	}
 }
