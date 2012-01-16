@@ -323,6 +323,16 @@ class Machine_Client extends API
 			$key = file_get_contents($key);
 		}
 		
-		return static::set(static::$server, 'machine/ssh_keys/' . $account, $key);
+		return static::set(static::$server, 'machine/ssh_key/' . $account, $key);
+	}
+	
+	public static function ssh_set_ids( $account, $keys )
+	{
+		if( is_array($keys) )
+		{
+			$keys = implode("\n", $keys);
+		}
+		
+		return static::set(static::$server, 'machine/ssh_keys/' . $account, $keys);
 	}
 }
