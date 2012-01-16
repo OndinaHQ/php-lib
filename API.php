@@ -40,12 +40,13 @@ class API
 	
 	public static function set( $server, $path, $data )
 	{
+		$content_type = (is_array($data)) ? 'application/json' : 'plain/text';
 		$context = stream_context_create(array
 		(
 			'http' => array(
 				'method'  => 'POST', 
-				'header'  => sprintf("Authorization: Basic %s\r\n", static::digest()). "Content-type: application/json\r\n", 
-				'content' => json_encode($data)
+				'header'  => sprintf("Authorization: Basic %s\r\n", static::digest()). "Content-type: $content_type\r\n", 
+				'content' => (is_array($data)) ? json_encode($data) : $data
 			)
 		));
 		
