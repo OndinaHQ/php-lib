@@ -256,7 +256,7 @@ class Machine
 		
 		if( !is_file($filepath) )
 		{
-			system(sprintf('ssh-keygen -q -f %s -N "%s" -C "%s"', $filepath, $options['passphrase'], $options['comment']), $status);
+			system(sprintf('/usr/bin/ssh-keygen -q -f %s -N "%s" -C "%s"', $filepath, $options['passphrase'], $options['comment']), $status);
 			
 			return ( $status > 0 ) ? false : true;
 		}
