@@ -103,12 +103,18 @@ class Apache extends Meta
 		
 		foreach( $defaults as $arr_key )
 		{
-			if( !array_key_exists($arr_key, $params) )
+			if( array_key_exists($arr_key, $params['basic']) )
+			{
+				$config = str_replace("[$arr_key]", $params['basic'][$arr_key], $config);
+			}
+			elseif( array_key_exists($arr_key, $params[$meta['global']['template']]) )
+			{
+				$config = str_replace("[$arr_key]", $params[$meta['global']['template']][$arr_key], $config);
+			}
+			else
 			{
 				throw new Exception(APACHE_TEMPLATE_MISMATCH);
 			}
-			
-			$config = str_replace("[$arr_key]", $params[$arr_key], $config);
 		}
 		
 		// This really should never occur based on our previous check. Though you can never be too sure
