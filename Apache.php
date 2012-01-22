@@ -220,6 +220,21 @@ class Apache_Client extends API
 		//data = user, domain, serveradmin, [all-other-variables-from-tpl]
 	}
 	
+	public static function save( $user, $domain, $data )
+	{
+		return static::set(static::$server, 'apache/' . $user . '/' . $domain, $data);
+	}
+	
+	public static function generate( $user, $domain )
+	{
+		return static::set(static::$server, 'apache/generate/' . $user, $domain);
+	}
+	
+	public static function archive( $user, $domain )
+	{
+		return static::set(static::$server, 'apache/archive/' . $user, $domain);
+	}
+	
 	public static function domains( $username )
 	{
 		return json_decode(static::get(static::$server, 'apache/domains/' . $username), true);
