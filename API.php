@@ -50,7 +50,7 @@ class API
 			)
 		));
 		
-		return (!@file_get_contents('https://' . $server . ':9001/'. $path, false, $context)) ? false : true;
+		return (@file_get_contents('https://' . $server . ':9001/'. $path, false, $context) === false) ? false : true;
 	}
 	
 	public static function del( $server, $path )
