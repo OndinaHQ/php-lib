@@ -230,11 +230,6 @@ class Apache_Client extends API
 		return static::set(static::$server, 'apache/generate/' . $user, $domain);
 	}
 	
-	public static function archive( $user, $domain )
-	{
-		return static::set(static::$server, 'apache/archive/' . $user, $domain);
-	}
-	
 	public static function domains( $username )
 	{
 		return json_decode(static::get(static::$server, 'apache/domains/' . $username), true);
