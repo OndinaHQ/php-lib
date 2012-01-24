@@ -215,13 +215,14 @@ class Apache extends Meta
 
 class Apache_Client extends API
 {
-	public static function add($template, $data)
+	public static function add($user, $domain, $data)
 	{
-		//data = user, domain, serveradmin, [all-other-variables-from-tpl]
+		return static::set(static::$server, 'vhost/add/' . $user . '/' . $domain, $data);
 	}
 	
 	public static function save( $user, $domain, $data )
 	{
+		$data['global']['updated'] = time();
 		return static::set(static::$server, 'apache/' . $user . '/' . $domain, $data);
 	}
 	
