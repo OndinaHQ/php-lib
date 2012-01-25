@@ -217,7 +217,14 @@ class Apache_Client extends API
 {
 	public static function add($user, $domain, $data)
 	{
-		return static::set(static::$server, 'vhost/add/' . $user . '/' . $domain, $data);
+		if( static::save($user, $domain, $data) )
+		{
+			return static::get(static::$server, 'vhost/add/' . $user . '/' . $domain);
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	public static function save( $user, $domain, $data )
