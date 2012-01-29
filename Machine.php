@@ -336,8 +336,8 @@ class Machine_Client extends API
 		return static::set(static::$server, 'machine/ssh_keys/' . $account, $keys);
 	}
 	
-	public static function archive( $user, $domain )
+	public static function archive( $user, $data )
 	{
-		return static::set(static::$server, 'machine/archive/' . $user, $domain);
+		return static::set(static::$server, 'machine/archive/' . $user, $data);
 	}
 }
