@@ -77,4 +77,14 @@ class Meta
 	{
 		return (!file_put_contents($path, json_encode($data))) ? false : true;
 	}
+	
+	public static function delete( $user, $domain )
+	{
+		return static::del_raw(static::$path . "/$user/$domain");
+	}
+	
+	public static function del_raw( $path )
+	{
+		return @unlink($path);
+	}
 }

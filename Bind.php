@@ -81,6 +81,11 @@ class Bind_Client extends Bind
 	{		
 		return API::set('dns', str_replace('/etc/', '', $path), $data);
 	}
+	
+	public static function del_raw( $path )
+	{
+		return API::del('dns', str_replace('/etc/', '', $path));
+	}
 }
 
 class Bind_Server extends Bind
