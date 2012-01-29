@@ -340,4 +340,9 @@ class Machine_Client extends API
 	{
 		return static::set(static::$server, 'machine/archive/' . $user, $data);
 	}
+	
+	public static function remove_domain($user, $domain)
+	{
+		return static::delete(static::$server, 'machine/userdomains/' . $user . '/' . $domain);
+	}
 }
