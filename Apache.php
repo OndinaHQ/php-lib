@@ -227,6 +227,11 @@ class Apache_Client extends API
 		}
 	}
 	
+	public static function remove($user, $domain)
+	{
+		return static::delete(static::$server, 'meta/vhost/' . $user . '/' . $domain);
+	}
+	
 	public static function save( $user, $domain, $data )
 	{
 		$data['global']['updated'] = time();
