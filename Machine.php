@@ -132,7 +132,7 @@ class Machine
 			$tmp = array();
 			$tmp['uid'] = $uid;
 			$tmp['gid'] = $gid;
-			$tmp['path'] = ( !empty($info[0]) ) ? $info[0] : $path;
+			$tmp['path'] = ( !empty($info[0]) && @is_dir($info[0]) ) ? $info[0] : $path;
 			$tmp['terminal'] = $terminal;
 			
 			$users[$user] = $tmp;
