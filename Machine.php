@@ -345,4 +345,9 @@ class Machine_Client extends API
 	{
 		return static::delete(static::$server, 'machine/userdomains/' . $user . '/' . $domain);
 	}
+	
+	public static function create_account($account)
+	{
+		return static::put(static::$server, 'machine/account/create/', $account);
+	}
 }
