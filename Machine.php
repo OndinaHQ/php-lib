@@ -348,6 +348,6 @@ class Machine_Client extends API
 	
 	public static function create_account($account)
 	{
-		return static::put(static::$server, 'machine/account/create/', $account);
+		return static::set(static::$server, 'machine/account/create/', $account);
 	}
 }
