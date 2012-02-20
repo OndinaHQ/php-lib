@@ -180,6 +180,18 @@ class Apache extends Meta
 		return unlink(APACHE_DIR . "/sites-enabled/$user--$domain");
 	}
 	
+	public static function is_disabled( $user, $domain )
+	{
+		if( is_file(APACHE_DIR . "sites-available/$user/$domain") )
+		{
+			return ( !is_file(APACHE_DIR . "/sites-enabled/$user--$domain") ) ? true : false;
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
 	public static function delete( $user, $domain )
 	{
 		
@@ -241,6 +253,16 @@ class Apache_Client extends API
 	public static function generate( $user, $domain )
 	{
 		return static::set(static::$server, 'apache/generate/' . $user, $domain);
+	}
+	
+	public static function disable( $user, $domain )
+	{
+		return static::set(static::$server, 'apache/disable/' . $user, $domain);
+	}
+	
+	public static function enable( $user, $domain )
+	{
+		return static::set(static::$server, 'apache/enable/' . $user, $domain);
 	}
 	
 	public static function domains( $username )

@@ -127,12 +127,12 @@ class Machine
 			$user = array_shift($data);
 			
 			list(, $uid, $gid, $info, $path, $terminal) = $data;
+			$info = explode(',', $info);
 			
 			$tmp = array();
 			$tmp['uid'] = $uid;
 			$tmp['gid'] = $gid;
-			$tmp['name'] = array_shift(explode(',', $info));
-			$tmp['path'] = $path;
+			$tmp['path'] = ( !empty($info[0]) && @is_dir($info[0]) ) ? $info[0] : $path;
 			$tmp['terminal'] = $terminal;
 			
 			$users[$user] = $tmp;
