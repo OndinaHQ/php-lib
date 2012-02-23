@@ -345,4 +345,14 @@ class Machine_Client extends API
 	{
 		return static::delete(static::$server, 'machine/userdomains/' . $user . '/' . $domain);
 	}
+	
+	public static function ls_software()
+	{
+		return json_decode(static::get(static::$server, 'ls_software'), true);
+	}
+
+	public static function install($software, $params)
+	{
+		return static::set(static::$server, 'install_software/' . $software);
+	}
 }
