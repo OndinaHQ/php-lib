@@ -355,4 +355,9 @@ class Machine_Client extends API
 	{
 		return static::set(static::$server, 'install_software/' . $software);
 	}
+	
+	public static function create_account($account)
+	{
+		return static::set(static::$server, 'machine/account/create/', $account);
+	}
 }
