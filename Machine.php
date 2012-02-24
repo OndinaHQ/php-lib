@@ -360,4 +360,9 @@ class Machine_Client extends API
 	{
 		return static::set(static::$server, 'machine/account/create/', $account);
 	}
+	
+	public static function installed($user, $domain)
+	{
+		return static::get(static::$server, 'meta/install/' . $user . '/' . $domain);
+	}
 }
