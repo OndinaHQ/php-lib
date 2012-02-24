@@ -363,6 +363,6 @@ class Machine_Client extends API
 	
 	public static function installed($user, $domain)
 	{
-		return static::get(static::$server, 'meta/install/' . $user . '/' . $domain);
+		return json_decode(static::get(static::$server, 'meta/install/' . $user . '/' . $domain), true);
 	}
 }
