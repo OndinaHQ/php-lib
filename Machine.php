@@ -365,4 +365,9 @@ class Machine_Client extends API
 	{
 		return json_decode(static::get(static::$server, 'meta/install/' . $user . '/' . $domain), true);
 	}
+	
+	public static function remove_application($user, $domain)
+	{
+		return static::delete(static::$server, 'meta/install/' . $user . '/' . $domain);
+	}
 }
