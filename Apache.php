@@ -210,7 +210,7 @@ class Apache extends Meta
 		
 		foreach( $domains as $domain => &$data )
 		{
-			if( static::is_disabled($user, $domain) )
+			if( static::is_disabled($username, $domain) )
 			{
 				$data['global']['enabled'] = false;
 			}
