@@ -206,7 +206,17 @@ class Apache extends Meta
 	
 	public static function domains( $username )
 	{
-		return static::get($username, '', true);
+		$domains = static::get($username, '', true);
+		
+		foreach( $domains as $domain => &$data )
+		{
+			if( static::is_disabled($user, $domain) )
+			{
+				$data['global']['enabled'] = false;
+			}
+		}
+		
+		return $domains;
 	}
 	
 	/** Not sure about this.
