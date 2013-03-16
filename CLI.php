@@ -1,17 +1,12 @@
 <?php
 /**
- * CLI class
+ * CommandLine class
  *
- * @package             Framework
- */
-
-/**
  * Command Line Interface (CLI) utility class.
  *
  * @author              Patrick Fisher <patrick@pwfisher.com>
  * @since               August 21, 2009
- * @package             Framework
- * @subpackage          Env
+ * @see                 https://github.com/pwfisher/CommandLine.php
  */
 class CLI
 {
